@@ -1,4 +1,5 @@
 ﻿using Akka.Actor;
+using AkkaExample.Actors;
 using System;
 
 namespace AkkaExample
@@ -10,6 +11,7 @@ namespace AkkaExample
         static void Main(string[] args)
         {
             ActorSystem = ActorSystem.Create("MainActor");
+            ActorSystem.ActorOf<Zoo>("zoo");
         }
     }
 }
