@@ -1,4 +1,5 @@
-﻿using Akka.Actor;
+﻿using Akka;
+using Akka.Actor;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,7 +17,12 @@ namespace AkkaExample.Actors
 
         protected override void OnReceive(object message)
         {
-            throw new NotImplementedException();
+            switch (message)
+            {
+                case "Who is the keeper?":
+                    Keeper.Tell("Who is the keeper?", Self);
+                    break;
+            }
         }
 
         public static Props Props() => Akka.Actor.Props.Create(() => new Zoo());

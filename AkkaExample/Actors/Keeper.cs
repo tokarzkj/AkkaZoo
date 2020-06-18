@@ -16,7 +16,12 @@ namespace AkkaExample.Actors
 
         protected override void OnReceive(object message)
         {
-            throw new NotImplementedException();
+            switch (message)
+            {
+                case "Who is the keeper?":
+                    Sender.Tell(Name, Self);
+                    break;
+            }
         }
 
         public static Props Props(string name)
