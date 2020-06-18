@@ -11,7 +11,10 @@ namespace AkkaExample
         static void Main(string[] args)
         {
             ActorSystem = ActorSystem.Create("MainActor");
-            ActorSystem.ActorOf<Zoo>("zoo");
+            IActorRef zoo = ActorSystem.ActorOf(Zoo.Props(), "zoo");
+            //zoo.
+
+            ActorSystem.Dispose();
         }
     }
 }

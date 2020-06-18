@@ -5,11 +5,20 @@ using System.Text;
 
 namespace AkkaExample.Actors
 {
-    class Zoo : UntypedActor
+    public class Zoo : UntypedActor
     {
+        private readonly IActorRef Keeper;
+
+        public Zoo()
+        {
+            Keeper = Context.ActorOf(Actors.Keeper.Props("Joel Exotic"), "keeper");
+        }
+
         protected override void OnReceive(object message)
         {
             throw new NotImplementedException();
         }
+
+        public static Props Props() => Akka.Actor.Props.Create(() => new Zoo());
     }
 }
