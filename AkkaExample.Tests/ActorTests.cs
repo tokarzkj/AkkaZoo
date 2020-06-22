@@ -33,5 +33,18 @@ namespace AkkaExample.Tests
             animal.Tell(foodMessage);
             ExpectMsg("Thank you I was hungry");
         }
+
+        [Fact]
+        public void ZooAccountant()
+        {
+            var zoo = Sys.ActorOf(Zoo.Props(), "zoo");
+
+            var probe = CreateTestProbe();
+            zoo.Tell(probe.Ref, TestActor);
+
+            var newTicketPurchased = new TicketPurchaseMessage(2, 8.99M);
+            zoo.Tell(newTicketPurchased);
+            ExpectMsg("Thank you I was hungry");
+        }
     }
 }

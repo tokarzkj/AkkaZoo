@@ -8,7 +8,7 @@ namespace AkkaExample.Messages
     {
         public FoodMessage(string name)
         {
-            Id = new Guid();
+            Id = Guid.NewGuid();
             Name = name;
         }
 

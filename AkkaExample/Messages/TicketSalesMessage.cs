@@ -4,15 +4,16 @@ using System.Text;
 
 namespace AkkaExample.Messages
 {
-    public class KeeperNameMessage
+    public class TicketSalesMessage
     {
-        public KeeperNameMessage()
+        public TicketSalesMessage(decimal ticketSales)
         {
             Id = Guid.NewGuid();
+            TicketSales = ticketSales;
         }
 
         public Guid Id { get; set; }
 
-        public string Name { get; set; }
+        public decimal TicketSales { get; set; }
     }
 }

@@ -4,15 +4,13 @@ using System.Text;
 
 namespace AkkaExample.Messages
 {
-    public class KeeperNameMessage
+    public class AdmittedMessage
     {
-        public KeeperNameMessage()
+        public Guid Id { get; set; }
+
+        public AdmittedMessage()
         {
             Id = Guid.NewGuid();
         }
-
-        public Guid Id { get; set; }
-
-        public string Name { get; set; }
     }
 }
