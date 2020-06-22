@@ -11,7 +11,10 @@ namespace AkkaExample.Actors
         public Keeper(string name)
         {
             Name = name;
+            Animal = Context.ActorOf(Actors.Animal.Props("Tiger"), "tiger");
         }
+
+        private readonly IActorRef Animal;
 
         public string Name { get; set; }
 
@@ -22,6 +25,9 @@ namespace AkkaExample.Actors
                 case KeeperNameMessage m:
                     m.Name = Name;
                     Sender.Tell(m, Self);
+                    break;
+                case FoodMessage food:
+                    Sender.Tell(food, Self);
                     break;
             }
         }
