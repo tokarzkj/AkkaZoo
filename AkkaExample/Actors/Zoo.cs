@@ -1,5 +1,6 @@
 ﻿using Akka;
 using Akka.Actor;
+using AkkaExample.Messages;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,8 +20,15 @@ namespace AkkaExample.Actors
         {
             switch (message)
             {
-                case "Who is the keeper?":
-                    Keeper.Tell("Who is the keeper?", Self);
+                case KeeperNameMessage m:
+                    if (m.Name is null)
+                    {
+                        Keeper.Tell(m, Self);
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Keepers name is {m.Name}");
+                    }
                     break;
             }
         }
