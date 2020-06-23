@@ -16,7 +16,7 @@ namespace AkkaExample.Actors
 
         public Zoo()
         {
-            Keeper = Context.ActorOf(Actors.Keeper.Props("Joel Exotic"), "keeper");
+            Keeper = Context.ActorOf(Actors.Keeper.Props("Joel Wild"), "keeper");
             Accountant = Context.ActorOf(Actors.Accountant.Props(), "Accountant");
             Customers = new List<IActorRef>();
         }
