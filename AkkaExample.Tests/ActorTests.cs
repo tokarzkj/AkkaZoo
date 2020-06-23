@@ -11,14 +11,14 @@ namespace AkkaExample.Tests
         [Fact]
         public void KeeperTellsUsName()
         {
-            var keeper = Sys.ActorOf(Keeper.Props("Joel Exotic"), "Joel Exotic");
+            var keeper = Sys.ActorOf(Keeper.Props("Joel Wild"), "Joel");
 
             var probe = CreateTestProbe();
             keeper.Tell(probe.Ref, TestActor);
 
             var keeperNameMessage = new KeeperNameMessage();
             keeper.Tell(keeperNameMessage);
-            ExpectMsg<KeeperNameMessage>(m => m.Name == "Joel Exotic");
+            ExpectMsg<KeeperNameMessage>(m => m.Name == "Joel Wild");
         }
 
         [Fact]

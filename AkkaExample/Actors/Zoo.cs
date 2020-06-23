@@ -14,8 +14,6 @@ namespace AkkaExample.Actors
 
         private readonly IList<IActorRef> Customers;
 
-        private int AdmittedCount = 0;
-
         public Zoo()
         {
             Keeper = Context.ActorOf(Actors.Keeper.Props("Joel Exotic"), "keeper");
@@ -42,11 +40,14 @@ namespace AkkaExample.Actors
                     var customer = Context.ActorOf(Actors.Customer.Props("hank"), "customer" + Customers.Count);
                     Customers.Add(customer);
 
-                    var admittedMessage = Accountant.Ask<AdmittedMessage>(ticketSalesMessage)
+                    Accountant.Ask<AdmittedMessage>(ticketSalesMessage)
                         .PipeTo(customer, Self);
                     break;
-                case AdmittedMessage am:
+                case AdmittedMessage _:
                     Console.WriteLine("Customer admitted");
+                    break;
+                case FoodMessage fm:
+                    Keeper.Tell(fm);
                     break;
             }
         }
