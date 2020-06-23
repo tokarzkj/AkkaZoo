@@ -2,6 +2,7 @@
 using AkkaExample.Messages;
 using System;
 using System.Collections.Generic;
+using System.Reflection.Metadata.Ecma335;
 
 namespace AkkaExample.Actors
 {
@@ -12,6 +13,8 @@ namespace AkkaExample.Actors
         private readonly IActorRef Accountant;
 
         private readonly IList<IActorRef> Customers;
+
+        private int AdmittedCount = 0;
 
         public Zoo()
         {
@@ -39,8 +42,11 @@ namespace AkkaExample.Actors
                     var customer = Context.ActorOf(Actors.Customer.Props("hank"), "customer" + Customers.Count);
                     Customers.Add(customer);
 
-                    var admittedMessage = Accountant.Ask<AdmittedMessage>(ticketSalesMessage).PipeTo(customer);
-                    customer.Tell(admittedMessage);
+                    var admittedMessage = Accountant.Ask<AdmittedMessage>(ticketSalesMessage)
+                        .PipeTo(customer, Self);
+                    break;
+                case AdmittedMessage am:
+                    Console.WriteLine("Customer admitted");
                     break;
             }
         }

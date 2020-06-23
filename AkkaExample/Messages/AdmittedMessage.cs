@@ -8,6 +8,8 @@ namespace AkkaExample.Messages
     {
         public Guid Id { get; set; }
 
+        private int Count { get; set; }
+
         public AdmittedMessage()
         {
             Id = Guid.NewGuid();

@@ -35,7 +35,7 @@ namespace AkkaExample.Tests
         }
 
         [Fact]
-        public void ZooAccountant()
+        public void CustomerPurchasesTicketToZoo()
         {
             var zoo = Sys.ActorOf(Zoo.Props(), "zoo");
 
@@ -44,7 +44,7 @@ namespace AkkaExample.Tests
 
             var newTicketPurchased = new TicketPurchaseMessage(2, 8.99M);
             zoo.Tell(newTicketPurchased);
-            ExpectMsg("Thank you I was hungry");
+            ExpectNoMsg();
         }
     }
 }
