@@ -40,6 +40,15 @@ namespace AkkaExample
                     case "q":
                         doContinue = false;
                         break;
+                    case "fix":
+                        Console.WriteLine("Enter thing to maintain");
+                        var thingToMaintain = Console.ReadLine();
+                        var maintenanceMessage = new MaintenanceMessage()
+                        {
+                            ThingToMaintain = thingToMaintain
+                        };
+                        zoo.Tell(maintenanceMessage);
+                        break;
                 }
             }
 

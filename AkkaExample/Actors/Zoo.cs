@@ -1,4 +1,5 @@
 ﻿using Akka.Actor;
+using Akka.Routing;
 using AkkaExample.Messages;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,8 @@ namespace AkkaExample.Actors
 
         private readonly IActorRef Accountant;
 
+        private readonly IActorRef Maintenance;
+
         private readonly IList<IActorRef> Customers;
 
         public Zoo()
@@ -19,6 +22,9 @@ namespace AkkaExample.Actors
             Keeper = Context.ActorOf(Actors.Keeper.Props("Joel Wild"), "keeper");
             Accountant = Context.ActorOf(Actors.Accountant.Props(), "Accountant");
             Customers = new List<IActorRef>();
+
+            var maintenanceProps = Akka.Actor.Props.Create<Maintenance>().WithRouter(new RoundRobinPool(2));
+            Maintenance = Context.ActorOf(maintenanceProps, "maintenance");
         }
 
         protected override void OnReceive(object message)
@@ -48,6 +54,9 @@ namespace AkkaExample.Actors
                     break;
                 case FoodMessage fm:
                     Keeper.Tell(fm);
+                    break;
+                case MaintenanceMessage mm:
+                    Maintenance.Tell(mm);
                     break;
             }
         }
