@@ -6,23 +6,18 @@ using System.Text;
 
 namespace AkkaExample.Actors
 {
-    public class Maintenance : UntypedActor
+    public class Maintenance : ReceiveActor
     {
         private readonly Guid Id;
 
         public Maintenance()
         {
             Id = Guid.NewGuid();
-        }
 
-        protected override void OnReceive(object message)
-        {
-            switch (message)
+            Receive<MaintenanceMessage>(mm =>
             {
-                case MaintenanceMessage m:
-                    Console.WriteLine($"{Id} is working on {m.ThingToMaintain}");
-                    break;
-            }
+                Console.WriteLine($"{Id} is working on {mm.ThingToMaintain}");
+            });
         }
     }
 }

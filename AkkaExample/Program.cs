@@ -50,6 +50,7 @@ namespace AkkaExample
                         zoo.Tell(maintenanceMessage);
                         break;
                 }
+                Console.WriteLine();
             }
 
             ActorSystem.Dispose();
