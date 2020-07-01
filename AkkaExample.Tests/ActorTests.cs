@@ -24,7 +24,7 @@ namespace AkkaExample.Tests
         [Fact]
         public void FeedTheAnimals()
         {
-            var animal = Sys.ActorOf(Animal.Props("Joel Exotic"), "Tiger");
+            var animal = Sys.ActorOf(Animal.Props("Joel Wild"), "Tiger");
 
             var probe = CreateTestProbe();
             animal.Tell(probe.Ref, TestActor);
